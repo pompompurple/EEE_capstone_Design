@@ -3,6 +3,7 @@ import torchvision.models as models
 import torch.utils.benchmark as benchmark
 
 def build_model(weights=None):
+    torch.manual_seed(0)
     model = models.resnet18(weights=weights)
     model.eval()
     return model
@@ -31,9 +32,11 @@ def main():
 
     result = run_benchmark(model, x)
     print(result)
-    return 0
 
+    y = model(x)
+    print("this is y[0, :10]: ", y[0, :10])
+    
+    return 0
 
 if __name__ == "__main__":
     main()
-
