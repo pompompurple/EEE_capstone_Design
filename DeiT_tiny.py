@@ -3,6 +3,7 @@ import timm
 import torch.utils.benchmark as benchmark
 
 def build_model(pretrained=False):
+    torch.manual_seed(0)
     model = timm.create_model("deit_tiny_patch16_224", pretrained=pretrained)
     model.eval()
     return model
@@ -31,6 +32,10 @@ def main():
 
     result = run_benchmark(model, x)
     print(result)
+
+    y = model(x)
+    print("this is y[0, :10]: ", y[0, :10])
+    
     return 0
 
 
